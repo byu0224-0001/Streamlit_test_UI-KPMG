@@ -4,7 +4,7 @@ import plotly.express as px # 차트 생성을 위해 plotly 추가
 
 # --- 1. 페이지 상태 초기화 ---
 if 'page' not in st.session_state:
-    st.session_state.page = 'Main'
+    st.session_state.page = 'ThinkWise'
 
 # --- 2. 페이지 변경을 위한 콜백 함수 정의 ---
 def set_page(page_name):
@@ -85,7 +85,7 @@ st.markdown("""
 
 # --- 4. 페이지 함수 선언 (분석 대시보드 함수 추가) ---
 def main_page():
-    st.markdown("<h1 style='text-align: center; color: gold;'>Main</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='text-align: center; color: gold;'>ThinkWise</h1>", unsafe_allow_html=True)
     st.markdown("<h2 style='text-align: center; color: white;'>튜토리얼</h2>", unsafe_allow_html=True)
     st.video('data/Y2K_프로토타입_시연_영상.mp4')
 
@@ -147,5 +147,6 @@ for page_name in page_names_to_funcs.keys():
 
 # --- 6. 선택된 페이지 실행 ---
 page_names_to_funcs[st.session_state.page]()
+
 
 
