@@ -4,7 +4,7 @@ import plotly.express as px # 차트 생성을 위해 plotly 추가
 
 # --- 1. 페이지 상태 초기화 ---
 if 'page' not in st.session_state:
-    st.session_state.page = 'ThinkWise'
+    st.session_state.page = 'Main'
 
 # --- 2. 페이지 변경을 위한 콜백 함수 정의 ---
 def set_page(page_name):
@@ -147,3 +147,4 @@ for page_name in page_names_to_funcs.keys():
 
 # --- 6. 선택된 페이지 실행 ---
 page_names_to_funcs[st.session_state.page]()
+
