@@ -44,13 +44,13 @@ st.markdown("""
         font-size: 24px;
     }
 
-    /* 사이드바의 모든 버튼에 대한 기본 스타일 (선택되지 않았을 때) */
+       /* 사이드바의 모든 버튼에 대한 기본 스타일 (선택되지 않았을 때) */
     [data-testid="stSidebar"] .stButton button[kind="secondary"] {
         width: 100%;
         text-align: left;
         background-color: transparent;
-        color: black;
-        border: none;
+        color: white; /* 검은색 -> 흰색으로 변경 */
+        border: 1px solid white; /* 흰색 테두리 추가 */
         padding: 14px;
         margin-bottom: 4px;
         border-radius: 0.5rem;
@@ -58,8 +58,8 @@ st.markdown("""
 
     /* 사이드바 버튼에 마우스를 올렸을 때 스타일 */
     [data-testid="stSidebar"] .stButton button[kind="secondary"]:hover {
-        background-color: rgba(0, 0, 0, 0.1); /* 약간 어두운 효과 */
-        color: black;
+        background-color: rgba(255, 255, 255, 0.2); /* 흰색 투명 배경 효과 */
+        color: white;
     }
     
     /* 현재 선택된 페이지 버튼 스타일 (primary 타입) */
