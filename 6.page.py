@@ -49,8 +49,8 @@ st.markdown("""
         width: 100%;
         text-align: left;
         background-color: transparent;
-        color: white; /* 검은색 -> 흰색으로 변경 */
-        border: 1px solid white; /* 흰색 테두리 추가 */
+        color: white;
+        border: 1px solid white;
         padding: 14px;
         margin-bottom: 4px;
         border-radius: 0.5rem;
@@ -122,7 +122,35 @@ def main_page():
 
 def page2():
     st.markdown("<h1 style='text-align: center; color: gold;'>리포트 생성</h1>", unsafe_allow_html=True)
+    st.write("") # 여백 추가
 
+    # 1. 선택 가능한 전체 키워드 목록 정의
+    product_options = ['삼성전자', '반도체', 'TSMC', 'HBM', 'SK하이닉스', 'D램 가격']
+
+    # 2. st.multiselect를 사용하여 키워드 선택 UI 생성
+    # 'selected_products'라는 키로 session_state에 선택된 제품 목록을 저장하고 관리
+    selected_products = st.multiselect(
+        '🛍️ 키워드 선택',
+        product_options,
+        default=['삼성전자', '반도체'], # 기본으로 선택될 값
+        key='selected_products'
+    )
+    st.divider()
+
+    # 3. 선택된 키워드 목록 확인 및 활용
+    st.subheader("선택된 키워드")
+    
+    if selected_products:
+        st.write("선택한 키워드:", ', '.join(selected_products))
+
+        
+        # 이 곳에 선택된 키워드를 바탕으로 리포트를 생성하는 로직을 추가할 수 있습니다.
+        if st.button("선택한 키워드로 리포트 생성"):
+            with st.spinner('리포트를 생성 중입니다...'):
+                # time.sleep(3) # 실제 분석 로직이 들어갈 부분
+                st.success(f"'{', '.join(selected_products)}'에 대한 리포트가 생성되었습니다!")
+    else:
+        st.info("정리 및 요약할 키워드를 선택해주세요.")
 def page3():
     st.markdown("<h1 style='text-align: center; color: gold;'>커뮤니티</h1>", unsafe_allow_html=True)
 
