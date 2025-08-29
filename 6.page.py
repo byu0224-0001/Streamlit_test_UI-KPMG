@@ -79,6 +79,31 @@ st.markdown("""
     .st-emotion-cache-1y4p8pa, .st-emotion-cache-zz1m3p, .st-emotion-cache-1n7693, p, li {
         color: white;
     }
+            
+    /* 페이지 제목 색상 (뉴스 분석 대시보드) */
+    .st-emotion-cache-10trblm h1 {
+        color: white;
+    }
+    
+    /* 페이지 부제목 색상 */
+    .st-emotion-cache-10trblm p {
+        color: grey;
+    }
+
+    /* st.metric 라벨 색상 (총 뉴스 기사 등) */
+    [data-testid="stMetricLabel"] {
+        color: grey;
+    }
+    
+    /* st.subheader 제목 색상 (트렌딩 토픽 등) */
+    h3 {
+        color: white;
+    }
+
+    /* st.text 및 st.caption 색상 (인공지능 혁신, 1247 기사 등) */
+    .st-emotion-cache-1629p8f, .st-emotion-cache-1xarl3l {
+        color: white;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -121,18 +146,19 @@ def dashboard_page():
 
     with chart1:
         st.subheader("📈 트렌딩 토픽")
-        # 예시 데이터
         trending_topics = {
             '인공지능 혁신': ('1247 기사', '23.6%'),
             '빅데이터 분석': ('892 기사', '15.2%'),
             '패키지 여행': ('634 기사', '-45.8%'),
             '클라우드 컴퓨팅': ('323 기사', '5.3%'),
             '사이버보안': ('488 기사', '-12.7%')
-        }
-        for topic, (count, delta) in trending_topics.items():
-            st.text(topic)
-            st.caption(count)
-            st.progress(float(delta.strip('%')) / 100, text=delta)
+            }
+    for topic, (count, delta) in trending_topics.items():
+        st.text(topic)
+        st.caption(count)
+        # float(delta.strip('%')) 부분을 abs()로 감싸서 절대값으로 변경
+        progress_value = abs(float(delta.strip('%'))) / 100
+        st.progress(progress_value, text=delta)
 
     with chart2:
         st.subheader("📊 카테고리별 분포")
