@@ -66,8 +66,8 @@ st.markdown("""
     [data-testid="stSidebar"] .stButton button[kind="primary"] {
         width: 100%;
         text-align: left;
-        background-color: white;
-        color: black;
+        background-color: black;
+        color: white;
         border: none;
         padding: 14px;
         margin-bottom: 4px;
@@ -147,4 +147,5 @@ for page_name in page_names_to_funcs.keys():
 
 # --- 6. 선택된 페이지 실행 ---
 page_names_to_funcs[st.session_state.page]()
+
 
