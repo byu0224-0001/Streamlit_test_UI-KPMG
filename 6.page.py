@@ -123,7 +123,7 @@ def dashboard_page():
 
 # 2. 딕셔너리 페이지
 page_names_to_funcs = {
-    'Main': main_page, 
+    'ThinkWise': main_page, 
     '리포트 생성': page2, 
     '커뮤니티': page3,
     '분석 대시보드': dashboard_page
@@ -147,6 +147,7 @@ for page_name in page_names_to_funcs.keys():
 
 # --- 6. 선택된 페이지 실행 ---
 page_names_to_funcs[st.session_state.page]()
+
 
 
 
