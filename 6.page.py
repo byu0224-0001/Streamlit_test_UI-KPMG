@@ -95,30 +95,88 @@ def page2():
 def page3():
     st.markdown("<h1 style='text-align: center; color: gold;'>커뮤니티</h1>", unsafe_allow_html=True)
 
-# --- 1. '분석 대시보드' 페이지 함수 새로 만들기 ---
+# --- '분석 대시보드' 페이지 함수 (수정된 버전) ---
 def dashboard_page():
-    st.markdown("<h1 style='text-align: center; color: gold;'>분석 대시보드</h1>", unsafe_allow_html=True)
-    
-    # 예시 데이터프레임 생성
-    data = {
-        'Category': ['A', 'B', 'C', 'D', 'E'],
-        'Value': [23, 45, 55, 30, 61],
-        'Ratio': [0.2, 0.3, 0.1, 0.25, 0.15]
-    }
-    df = pd.DataFrame(data)
+    # 페이지 제목
+    st.markdown("<h1 style='text-align: center; color: white;'>뉴스 분석 대시보드</h1>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align: center; color: grey;'>실시간 뉴스 데이터 분석 및 트렌드 인사이트</p>", unsafe_allow_html=True)
 
-    # 대시보드 레이아웃 구성
-    st.subheader("카테고리별 데이터 현황")
-    col1, col2 = st.columns(2)
-    with col1:
-        st.metric(label="총합", value=df['Value'].sum(), delta="5%")
-        st.dataframe(df) # 데이터 테이블 표시
-    with col2:
-        # 파이 차트 생성
-        fig = px.pie(df, names='Category', values='Ratio', title='카테고리별 비율')
-        st.plotly_chart(fig, use_container_width=True)
+    st.divider()
 
-# --- 1. '분석 대시보드' 페이지 함수 새로 만들기 ---
+    # --- 1. 상단 핵심 지표 (KPI) ---
+    kpi1, kpi2, kpi3, kpi4 = st.columns(4)
+    with kpi1:
+        st.metric(label="총 뉴스 기사", value="8,146", delta="120")
+    with kpi2:
+        st.metric(label="분석된 토픽", value="245", delta="-5")
+    with kpi3:
+        st.metric(label="분석 정확도", value="89%", delta="1.2%")
+    with kpi4:
+        st.metric(label="실시간 업데이트", value="활성")
+
+    st.divider()
+
+    # --- 2. 메인 차트 영역 (트렌딩 토픽 & 카테고리별 분포) ---
+    chart1, chart2 = st.columns([1.2, 2]) # 왼쪽과 오른쪽 컬럼의 너비 비율을 1.2:2로 설정
+
+    with chart1:
+        st.subheader("📈 트렌딩 토픽")
+        # 예시 데이터
+        trending_topics = {
+            '인공지능 혁신': ('1247 기사', '23.6%'),
+            '빅데이터 분석': ('892 기사', '15.2%'),
+            '패키지 여행': ('634 기사', '-45.8%'),
+            '클라우드 컴퓨팅': ('323 기사', '5.3%'),
+            '사이버보안': ('488 기사', '-12.7%')
+        }
+        for topic, (count, delta) in trending_topics.items():
+            st.text(topic)
+            st.caption(count)
+            st.progress(float(delta.strip('%')) / 100, text=delta)
+
+    with chart2:
+        st.subheader("📊 카테고리별 분포")
+        # 예시 데이터프레임
+        category_data = {
+            'Category': ['기술', '경제', '사회', '국제'],
+            'Count': [2847, 2284, 1792, 1223],
+            'Percentage': [35, 28, 22, 15]
+        }
+        df_category = pd.DataFrame(category_data)
+
+        # 가로 막대 그래프 (Plotly 사용)
+        fig_bar = px.bar(df_category, y='Category', x='Count',
+                         text=[f'{p}%' for p in df_category['Percentage']],
+                         orientation='h',
+                         color_discrete_sequence=px.colors.qualitative.Plotly)
+        fig_bar.update_layout(yaxis={'categoryorder':'total ascending'},
+                              xaxis_title="기사 수", yaxis_title="카테고리")
+        st.plotly_chart(fig_bar, use_container_width=True)
+
+    st.divider()
+
+    # --- 3. 하단 차트 영역 (관심 산업 분포 & AI 맞춤형 제안) ---
+    chart3, chart4 = st.columns(2)
+
+    with chart3:
+        st.subheader("🏭 관심 산업 분포")
+        # 도넛 차트 예시 데이터
+        industry_data = {
+            'Industry': ['반도체', 'IT서비스', '자동차', '금융', '기타'],
+            'Value': [40, 25, 15, 10, 10]
+        }
+        df_industry = pd.DataFrame(industry_data)
+
+        # 도넛 차트 생성 (Plotly 사용)
+        fig_donut = px.pie(df_industry, names='Industry', values='Value', hole=0.6)
+        st.plotly_chart(fig_donut, use_container_width=True)
+
+    with chart4:
+        st.subheader("💡 AI의 맞춤형 성장 제안")
+        st.info("최근 'IT/반도체' 산업에 대한 분석이 60%를 차지합니다.")
+        st.write("시장께서 주목받고 있는 '친환경 에너지' 산업에 대한 분석을 시작해보는 것은 어떨까요?")
+        if st.button("친환경 에너지 관련 뉴스 분석하기"):
+            st.success("'친환경 에너지' 토픽 분석을 시작합니다...")
 
 
 # 2. 딕셔너리 페이지
